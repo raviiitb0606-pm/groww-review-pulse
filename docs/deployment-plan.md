@@ -141,6 +141,8 @@ Project `groww-review-pulse` (Hobby), production URL https://groww-review-pulse-
 
 **Exit check**: `pulse-data` holds W44 and W45, and all six secrets are listed.
 
+Done 2026-11-18. Phase 4 step 1 passed the same day (run 44242851873): pipeline skipped, W45 deployed and still behind Vercel login. Nothing changed in `pulse-data`, so the push in *Save run history* is not proven yet; check it after the W46 run.
+
 ---
 
 ## Phase 4: First Runs
