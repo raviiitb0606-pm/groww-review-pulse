@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/* Design tokens from stitch_overview_dashboard_redesign/executive_overview/DESIGN.md */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", "Inter", ui-sans-serif, sans-serif;
+
+  --color-canvas: #f8f9fd;
+  --color-ink: #1e1b4b;
+  --color-on-surface: #0b1c30;
+  --color-muted: #64748b;
+  --color-primary: #5300b7;
+  --color-primary-container: #6d28d9;
+  --color-primary-fixed: #ebddff;
+  --color-positive: #10b981;
+  --color-negative: #e11d48;
+  --color-neutral: #f59e0b;
+
+  --text-metric-xl: 36px;
+  --text-metric-xl--line-height: 40px;
+  --text-metric-xl--letter-spacing: -0.03em;
+  --text-headline-xl: 28px;
+  --text-headline-xl--line-height: 36px;
+  --text-headline-xl--letter-spacing: -0.02em;
+  --text-headline-lg: 22px;
+  --text-headline-lg--line-height: 28px;
+  --text-title-md: 18px;
+  --text-title-md--line-height: 24px;
+  --text-body-md: 14px;
+  --text-body-md--line-height: 20px;
+  --text-body-sm: 13px;
+  --text-body-sm--line-height: 18px;
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 14px;
+}
+
+@layer base {
+  body {
+    @apply bg-canvas font-sans text-body-md text-on-surface antialiased;
+  }
+  ::selection {
+    @apply bg-primary-container text-white;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-container;
+  }
+}
+
+@utility tnum {
+  font-feature-settings: "tnum", "zero";
+}
+
+@utility card {
+  @apply rounded-2xl bg-white;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.03),
+    0 8px 24px -4px rgba(109, 40, 217, 0.08),
+    0 20px 40px -8px rgba(15, 23, 42, 0.05);
+  transition: box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  &:hover {
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.04),
+      0 16px 36px -4px rgba(109, 40, 217, 0.14),
+      0 28px 56px -8px rgba(15, 23, 42, 0.08);
+  }
+}
+
+@utility kpi-card {
+  @apply rounded-2xl bg-white/95 backdrop-blur-xl;
+  box-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.9) inset,
+    0 12px 32px -4px rgba(79, 70, 229, 0.09),
+    0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  transition:
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 1px 2px rgba(255, 255, 255, 1) inset,
+      0 20px 40px -6px rgba(109, 40, 217, 0.18),
+      0 8px 20px -2px rgba(109, 40, 217, 0.1);
+  }
+}
+
+@utility tactile {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+@utility glass-btn {
+  @apply tactile flex h-9 items-center gap-2 rounded-xl border border-slate-200/80 bg-white/80 px-3.5 text-label-md font-medium text-on-surface shadow-[0_1px_3px_rgba(0,0,0,0.04)] backdrop-blur-md hover:border-violet-300 hover:bg-white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

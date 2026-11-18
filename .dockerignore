@@ -1,0 +1,15 @@
+# Secrets come from Railway variables; run data lives on the volume mounted at /app/data.
+.env
+data/
+.venv/
+**/node_modules/
+**/__pycache__/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+frontend/dist/
+frontend/public/dashboard.json
+frontend/tsconfig.tsbuildinfo
+frontend/.vercel/
+stitch_overview_dashboard_redesign/
+tests/

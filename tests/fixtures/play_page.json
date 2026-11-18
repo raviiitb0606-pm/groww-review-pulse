@@ -1,0 +1,14 @@
+[
+  {"reviewId": "gp-001", "userName": "Test User One", "userImage": "https://example.invalid/a.png",
+   "content": "App crashes every time I open the portfolio tab.", "score": 1, "thumbsUpCount": 3,
+   "reviewCreatedVersion": "18.22.1", "at": "2026-10-31T11:39:24", "replyContent": "Sorry!",
+   "repliedAt": "2026-10-31T11:42:14", "appVersion": "18.22.1"},
+  {"reviewId": "gp-002", "userName": "Test User Two", "userImage": "https://example.invalid/b.png",
+   "content": "Withdrawal took five days to reach my bank account.", "score": 2, "thumbsUpCount": 0,
+   "reviewCreatedVersion": null, "at": "2026-10-20T09:00:00", "replyContent": null,
+   "repliedAt": null, "appVersion": null},
+  {"reviewId": "gp-003", "userName": "Test User Three", "userImage": "https://example.invalid/c.png",
+   "content": "good", "score": 5, "thumbsUpCount": 0,
+   "reviewCreatedVersion": "18.21.1", "at": "2026-10-19T10:00:00", "replyContent": null,
+   "repliedAt": null, "appVersion": "18.21.1"}
+]

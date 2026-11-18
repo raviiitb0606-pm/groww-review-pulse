@@ -1,0 +1,65 @@
+app:
+  name: Groww
+  play_package: com.nextbillion.groww
+  play_locale: en_IN
+window_weeks: 12            # 8-12
+min_review_chars: 15
+min_reviews: 50
+ingest:
+  page_size: 200            # reviews per Play Store request
+  max_pages: 150            # hard cap per run (ING-7)
+  throttle_seconds: 1.0     # pause between pages
+  max_retries: 4            # per page, exponential backoff
+  stop_after_old: 50        # consecutive pre-window reviews before stopping (ING-6)
+scrub:
+  min_words: 8              # keep reviews with more than this many words (after emoji removal)
+  max_redaction_share: 0.2  # redaction above this share of a review => quote_eligible=false
+  english_only: true        # drop Hindi / other-language reviews
+themes:
+  max: 5
+  top_k: 3
+  weights: { volume: 0.6, severity: 0.4 }
+  min_df: 4                 # a term must appear in this many reviews to join the vocabulary
+  max_df: 0.4               # ...and in at most this share of them
+  split_share: 0.3          # bisect a topic holding more than this share of the reviews
+  max_splits: 3
+  high_confidence: 0.5      # best topic's share of a review's topic weight for `high` confidence
+  seed: 7
+  max_other_share: 0.2      # exit check: `other` at most 20% of the corpus
+  min_theme_share: 0.05     # exit check: no theme under 5%
+select:
+  quote_chars: [20, 200]    # verbatim span length (architecture.md §3.5)
+  relaxed_quote_chars: [12, 240]  # SEL-2: used only for a theme with no span in the normal range
+  rank_candidates: 8        # heuristic top-N per theme sent to the LLM ranker
+  grounding_sample: 12      # reviews per top theme shown to compose for grounding
+  blocked_words: [fuck, fucking, shit, bastard, bloody, idiot, idiots, stupid, chutiya, bc, mc]  # SEL-6
+  flag_words: [zerodha, upstox, angel, dhan, paytm, 5paisa, kite, fyers, sharekhan, indmoney, mstock, fraud, scam, scammer, stole, cheat, cheating, sebi, court, legal, police, lawsuit]  # SEL-7
+note:
+  max_words: 250
+  quotes: 3
+  actions: 3
+  compose_retries: 2        # validation gate: re-compose with the error list, then abort
+email:
+  to: "raviiitb0606@gmail.com"
+  send: true                # the MCP server can only send (no drafts); false publishes the Doc only
+doc:
+  strategy: standing        # the MCP server appends to an existing Doc; it cannot create one
+  document_id: "1bAmjtX5lZqGjfCh1MUCpltMn3zR210OY4dgpZt008S4"  # docs.google.com/document/d/<ID>/edit
+mcp:
+  url: "https://basic-google-workspace-mcp.vercel.app/mcp"
+  command: "node /Users/ravi/Google_MCP_Build/dist/index.js"  # local server (stdio); "" uses the hosted `url`
+  token_env: MCP_AUTH_TOKEN # bearer token lives in .env, never in this file
+  timeout_seconds: 60
+  tools: { docs_append: append_google_doc, gmail_send: send_gmail }
+llm:
+  provider: groq            # groq (GROQ_API_KEY) | anthropic (ANTHROPIC_API_KEY, model claude-sonnet-5-5)
+  model: "openai/gpt-oss-120b"
+  max_retries: 2            # re-asks with the validator error fed back (temperature is not sent: unsupported)
+dashboard:
+  out: frontend/public/dashboard.json
+  themes:                   # display label and colour per theme name (theme names are reused week to week)
+    "Update / Chart / Option":      { label: "App updates & charts",       color: "#7C3AED" }
+    "Customer / Support / Service": { label: "Customer support",           color: "#F97362" }
+    "Friendly / Mutual / Simple":   { label: "Mutual funds & ease of use", color: "#14B8A6" }
+    "Trading / Market / Stock":     { label: "Trading & markets",          color: "#0EA5E9" }
+    "Charges / Brokerage / Profit": { label: "Charges & brokerage",        color: "#F59E0B" }

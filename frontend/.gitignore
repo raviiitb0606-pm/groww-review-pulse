@@ -1,0 +1,6 @@
+node_modules/
+dist/
+# exported by `pulse dashboard`; holds review text
+public/dashboard.json
+.vercel/
+*.tsbuildinfo

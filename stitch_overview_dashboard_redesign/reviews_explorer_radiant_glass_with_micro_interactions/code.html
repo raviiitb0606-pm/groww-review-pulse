@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+  @layer base {
+    html, body { margin: 0; padding: 0; }
+    body { overscroll-behavior: none; }
+    main > :first-child { margin-top: 0 !important; }
+    main > :last-child { margin-bottom: 0 !important; }
+  }
+  ::-webkit-scrollbar { display: none; }
+  .font-mono-num { font-feature-settings: "tnum", "zero"; }
+  .card-glass-glow {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 8px 24px -4px rgba(109, 40, 217, 0.07), 0 20px 40px -8px rgba(15, 23, 42, 0.04);
+  }
+  .kpi-card-glow {
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.9) inset, 0 12px 32px -4px rgba(79, 70, 229, 0.09), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  }
+  .smooth-spring {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+      transform: none !important;
+    }
+  }
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"secondary":"#5b598c","on-error":"#ffffff","tertiary-fixed":"#6ffbbe","secondary-fixed-dim":"#c4c1fb","primary":"#5300b7","primary-fixed":"#ebddff","surface":"#f8f9ff","background":"#f8f9ff","on-secondary-fixed-variant":"#444173","surface-dim":"#cbdbf5","on-secondary":"#ffffff","surface-container-highest":"#d3e4fe","inverse-on-surface":"#eaf1ff","inverse-surface":"#213145","surface-tint":"#7331df","surface-container-low":"#eff4ff","surface-variant":"#d3e4fe","on-primary":"#ffffff","secondary-container":"#c7c3fe","outline-variant":"#ccc3d7","on-secondary-fixed":"#181445","primary-container":"#6d28d9","on-primary-fixed":"#250059","on-primary-fixed-variant":"#5b00c5","surface-container-high":"#dce9ff","surface-container":"#e5eeff","on-surface":"#0b1c30","outline":"#7b7486","on-tertiary-container":"#58e7ab","on-tertiary-fixed-variant":"#005236","on-tertiary-fixed":"#002113","on-surface-variant":"#4a4455","surface-bright":"#f8f9ff","on-tertiary":"#ffffff","on-background":"#0b1c30","error-container":"#ffdad6","tertiary-container":"#006544","primary-fixed-dim":"#d3bbff","error":"#ba1a1a","inverse-primary":"#d3bbff","on-secondary-container":"#514f81","secondary-fixed":"#e3dfff","tertiary":"#004b31","on-error-container":"#93000a","surface-container-lowest":"#ffffff","on-primary-container":"#dac5ff","tertiary-fixed-dim":"#4edea3"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","2xl":"1rem","3xl":"1.25rem","full":"9999px"},"spacing":{"space-xl":"2.5rem","gutter":"1.5rem","space-lg":"1.5rem","space-sm":"0.5rem","margin":"2rem","space-xs":"0.25rem","space-md":"1rem"},"fontFamily":{"metric-xl":["Manrope","sans-serif"],"body-sm":["Inter","sans-serif"],"metric-md":["Manrope","sans-serif"],"headline-lg":["Manrope","sans-serif"],"label-sm":["Inter","sans-serif"],"label-md":["Inter","sans-serif"],"display-lg":["Manrope","sans-serif"],"body-md":["Inter","sans-serif"],"body-lg":["Inter","sans-serif"],"display-lg-mobile":["Manrope","sans-serif"],"title-md":["Manrope","sans-serif"],"headline-xl":["Manrope","sans-serif"],"mono":["JetBrains Mono","monospace"]},"fontSize":{"metric-xl":["36px",{"lineHeight":"40px","letterSpacing":"-0.03em","fontWeight":"700"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"metric-md":["24px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-lg":["22px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"400"}],"display-lg-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"title-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-xl":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}]}}}};</script></head><body class="bg-[#F8F9FD] font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-white relative min-h-screen">
+<!-- Radiant Ambient Background Glows matching SCREEN_4 & SCREEN_2 -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute -top-32 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-purple-200/40 via-violet-100/20 to-transparent rounded-full blur-3xl"></div>
+<div class="absolute top-[45%] right-0 w-[550px] h-[550px] bg-gradient-to-bl from-indigo-100/30 via-sky-100/20 to-transparent rounded-full blur-3xl"></div>
+<div class="absolute bottom-10 left-10 w-[500px] h-[500px] bg-gradient-to-tr from-emerald-100/25 via-teal-50/15 to-transparent rounded-full blur-3xl"></div>
+</div>
+<!-- Collapsible / Expandable Sleek Sidebar -->
+<aside class="fixed left-0 top-0 h-full w-16 hover:w-60 transition-all duration-300 ease-out bg-surface-container-lowest/80 backdrop-blur-xl border-r border-slate-200/70 shadow-[2px_0_16px_rgba(30,27,75,0.03)] z-50 flex flex-col justify-between overflow-hidden group">
+<div class="flex flex-col">
+<div class="h-16 flex items-center px-4 gap-3 border-b border-slate-100/80">
+<div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center shrink-0 shadow-[0_4px_12px_rgba(109,40,217,0.35)] ring-1 ring-white/30 group-hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined text-white text-[20px]">insights</span>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap overflow-hidden">
+<span class="font-title-md text-title-md text-on-surface tracking-tight font-extrabold flex items-center gap-1.5">
+            PulseAI
+            <span class="text-[9px] font-bold uppercase tracking-wider bg-primary-fixed text-primary px-1.5 py-0.5 rounded-full">Pro</span>
+</span>
+</div>
+</div>
+<nav class="flex flex-col gap-1.5 px-2.5 mt-3" data-active-classes="bg-gradient-to-r from-primary-container to-primary text-white font-medium shadow-[0_4px_14px_rgba(109,40,217,0.3)]">
+<a class="flex items-center h-10 px-2.5 rounded-xl text-on-surface-variant hover:bg-purple-50 hover:text-purple-600 transition-all duration-200 gap-3 overflow-hidden active:scale-95" data-path="overview" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px] transition-colors">space_dashboard</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap font-body-md text-body-md">Overview</span>
+</a>
+<a class="flex items-center h-10 px-2.5 rounded-xl text-on-surface-variant hover:bg-purple-50 hover:text-purple-600 transition-all duration-200 gap-3 overflow-hidden active:scale-95" data-path="trends" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px] transition-colors">monitoring</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap font-body-md text-body-md">Trends</span>
+</a>
+<a class="flex items-center h-10 px-2.5 rounded-xl text-on-surface-variant hover:bg-purple-50 hover:text-purple-600 transition-all duration-200 gap-3 overflow-hidden active:scale-95" data-path="themes" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px] transition-colors">category</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap font-body-md text-body-md">Themes</span>
+</a>
+<a aria-current="page" class="flex items-center h-10 px-2.5 rounded-xl transition-all duration-200 gap-3 overflow-hidden bg-gradient-to-r from-primary-container to-primary text-white font-medium shadow-[0_4px_14px_rgba(109,40,217,0.3)] ring-1 ring-white/20" data-path="quotes-and-feedback" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">chat_bubble</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap font-body-md text-body-md font-semibold">Quotes &amp; Feedback</span>
+</a>
+<a class="flex items-center h-10 px-2.5 rounded-xl text-on-surface-variant hover:bg-purple-50 hover:text-purple-600 transition-all duration-200 gap-3 overflow-hidden active:scale-95" data-path="releases" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px] transition-colors">new_releases</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap font-body-md text-body-md">Releases</span>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-1.5 px-2.5 pb-4 border-t border-slate-100/80 pt-3">
+<a class="flex items-center h-10 px-2.5 rounded-xl text-on-surface-variant hover:bg-purple-50 hover:text-purple-600 transition-all duration-200 gap-3 overflow-hidden active:scale-95" data-path="settings" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">settings</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap font-body-md text-body-md">Settings</span>
+</a>
+<div class="flex items-center px-1 pt-1 gap-3 overflow-hidden">
+<div class="relative shrink-0">
+<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center shadow-sm ring-1 ring-white">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim ring-2 ring-white"></span>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap overflow-hidden leading-tight">
+<p class="font-label-md text-label-md text-on-surface font-semibold">Sarah Jenkins</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">VP Product</p>
+</div>
+</div>
+</div>
+</aside>
+<div class="pl-16 relative z-10 flex flex-col min-h-screen">
+<!-- Radiant Glassmorphic Sticky Header -->
+<header class="fixed top-0 left-16 right-0 h-16 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_2px_12px_rgba(0,0,0,0.03)] z-40 transition-all">
+<div class="h-16 w-full px-6 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md text-on-surface font-bold tracking-tight">Executive Reviews &amp; Pulse</span>
+<span class="inline-flex items-center gap-1.5 font-label-sm text-label-sm bg-gradient-to-r from-emerald-500/10 to-teal-500/15 border border-emerald-500/20 text-emerald-800 px-2.5 py-0.5 rounded-full font-semibold ml-2 shadow-[0_1px_4px_rgba(16,185,129,0.15)]">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            Live
+          </span>
+</div>
+<div class="flex items-center gap-3">
+<!-- Week Selector Glass Pill -->
+<button class="h-9 px-3.5 rounded-xl bg-surface-container-lowest/80 backdrop-blur-md border border-slate-200/80 hover:bg-white hover:border-slate-300 text-on-surface flex items-center gap-2 font-label-md text-label-md shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] active:scale-[0.98] transition-all duration-200" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">calendar_today</span>
+<span class="font-medium">Week 44 (26 Oct – 1 Nov 2026)</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span>
+</button>
+<!-- Share Dropdown -->
+<div class="relative group/share">
+<button class="h-9 px-3.5 rounded-xl bg-surface-container-lowest/80 backdrop-blur-md border border-slate-200/80 hover:bg-white hover:border-slate-300 text-on-surface flex items-center gap-1.5 font-label-md text-label-md shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] active:scale-[0.98] transition-all duration-200" type="button">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">share</span>
+<span class="font-medium">Share</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span>
+</button>
+<div class="hidden group-hover/share:block absolute right-0 top-full pt-1.5 z-50">
+<div class="w-52 bg-white/95 backdrop-blur-xl border border-slate-200/80 rounded-2xl shadow-[0_16px_36px_-6px_rgba(30,27,75,0.12),0_4px_16px_-2px_rgba(30,27,75,0.04)] p-1.5 flex flex-col gap-0.5">
+<a class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-purple-50 hover:text-primary font-label-md text-label-md transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px] text-primary">description</span>
+<span class="font-medium">Open Google Doc</span>
+</a>
+<a class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-rose-50 hover:text-error font-label-md text-label-md transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px] text-error">picture_as_pdf</span>
+<span class="font-medium">Export PDF</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Filter Trigger -->
+<label class="cursor-pointer h-9 px-3.5 rounded-xl bg-gradient-to-r from-primary-container to-primary text-white flex items-center gap-2 font-label-md text-label-md shadow-[0_4px_14px_rgba(109,40,217,0.3)] hover:shadow-[0_6px_18px_rgba(109,40,217,0.45)] hover:brightness-105 active:scale-[0.98] transition-all duration-200" for="filter-drawer-toggle">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span class="font-semibold">Filters</span>
+<span class="w-5 h-5 rounded-full bg-white/25 text-white font-label-sm text-label-sm flex items-center justify-center font-bold">4</span>
+</label>
+<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center shadow-sm ring-2 ring-white cursor-pointer hover:ring-purple-300 transition-all">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<main class="w-full pt-20 px-4 sm:px-8 pb-12 flex-1 relative z-10"><div class="flex flex-col w-full">
+<div class="w-full max-w-[1440px] mx-auto space-y-6">
+<!-- Top Action / Context Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-1">
+<div>
+<div class="flex items-center gap-2 mb-1.5 flex-wrap">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold bg-purple-50/90 border border-purple-100/80 px-2.5 py-0.5 rounded-full shadow-xs">Intelligence Pipeline</span>
+<span class="text-slate-300 text-[12px]">•</span>
+<span class="font-label-sm text-label-sm text-emerald-800 font-bold bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1.5 shadow-[0_1px_4px_rgba(16,185,129,0.1)]">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> PII Masking Active (HIPAA/GDPR Tier 1)
+          </span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-slate-900 font-extrabold tracking-tight">Reviews Explorer</h1>
+<p class="font-body-md text-body-md text-slate-600 max-w-2xl mt-0.5 font-normal">
+          Granular qualitative feedback stream scrubbed for PII and indexed by semantic classification.
+        </p>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<!-- Saved Views Dropdown -->
+<div class="relative group/saved">
+<button class="h-10 px-4 rounded-xl bg-white/90 backdrop-blur-md text-slate-800 border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_14px_rgba(109,40,217,0.1)] hover:bg-white hover:border-purple-200/80 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 font-label-md text-label-md font-semibold" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">bookmarks</span>
+<span>Saved Views</span>
+<span class="bg-purple-100 text-primary-container px-2 py-0.5 rounded-full font-bold text-[10px]">3</span>
+<span class="material-symbols-outlined text-[16px] text-slate-400">expand_more</span>
+</button>
+<div class="hidden group-hover/saved:block absolute right-0 top-full pt-1.5 z-30 w-64">
+<div class="bg-white/95 backdrop-blur-2xl border border-slate-200/80 rounded-2xl shadow-[0_16px_36px_-6px_rgba(30,27,75,0.12)] p-2 flex flex-col gap-1">
+<div class="px-2.5 py-1 text-slate-400 font-label-sm text-label-sm uppercase tracking-wider font-bold">Presets</div>
+<button class="w-full text-left px-3 py-2 rounded-xl bg-purple-50 text-primary font-label-md text-label-md flex items-center justify-between font-semibold">
+<span>Executive Pulse Candidates</span>
+<span class="material-symbols-outlined text-[15px]">check</span>
+</button>
+<button class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-700 font-label-md text-label-md flex items-center justify-between font-medium">
+<span>v4.12.0 Critical Crashers</span>
+<span class="text-slate-400 font-label-sm text-label-sm font-mono-num font-bold">48</span>
+</button>
+<button class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-700 font-label-md text-label-md flex items-center justify-between font-medium">
+<span>KYC Onboarding Friction</span>
+<span class="text-slate-400 font-label-sm text-label-sm font-mono-num font-bold">29</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Export CSV Button -->
+<button class="h-10 px-4 rounded-xl bg-white/90 backdrop-blur-md text-slate-800 border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_14px_rgba(109,40,217,0.08)] hover:bg-white hover:border-purple-200/80 active:scale-[0.98] font-label-md text-label-md flex items-center gap-2 transition-all duration-200 font-semibold" type="button">
+<span class="material-symbols-outlined text-[18px] text-slate-500">download</span>
+<span>Bulk Export CSV</span>
+</button>
+</div>
+</div>
+<!-- Filter & Sort Bar (Frosted Glass Box) -->
+<div class="bg-white/90 backdrop-blur-xl rounded-3xl card-glass-glow border border-white/80 p-5 space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+<!-- Search Input -->
+<div class="md:col-span-4 relative flex items-center focus-within:ring-2 focus-within:ring-purple-500/30 focus-within:border-purple-500 rounded-xl transition-all duration-200">
+<span class="material-symbols-outlined absolute left-3.5 text-[18px] text-slate-400 pointer-events-none">search</span>
+<input class="w-full h-10 pl-10 pr-3.5 rounded-xl bg-slate-100/80 border border-slate-200 text-slate-900 font-body-sm text-body-sm placeholder:text-slate-400 focus:outline-none focus:ring-0 focus:border-purple-500 focus:bg-white transition-all duration-200 font-medium" placeholder="Search review text, keywords, author handle..." type="text" value="chart latency"/>
+</div>
+<!-- Date Range Filter -->
+<div class="md:col-span-3">
+<div class="h-10 px-3.5 rounded-xl bg-slate-100/80 border border-slate-200 text-slate-800 font-label-md text-label-md flex items-center justify-between cursor-pointer hover:bg-white hover:border-purple-200 hover:shadow-xs active:scale-[0.98] transition-all duration-200 font-medium">
+<div class="flex items-center gap-2 truncate">
+<span class="material-symbols-outlined text-[16px] text-primary">calendar_today</span>
+<span class="truncate">Week 44 (26 Oct – 1 Nov 2026)</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-slate-400 shrink-0">arrow_drop_down</span>
+</div>
+</div>
+<!-- Store Selector Pills -->
+<div class="md:col-span-3 flex items-center bg-slate-100/90 border border-slate-200/80 p-1 rounded-xl">
+<button class="flex-1 h-8 rounded-lg font-label-sm text-label-sm text-slate-600 hover:text-slate-900 hover:bg-white/60 active:scale-95 transition-all duration-150 font-medium" type="button">All Stores</button>
+<button class="flex-1 h-8 rounded-lg bg-white text-primary font-bold shadow-xs border border-slate-200/60 font-label-sm text-label-sm transition-all" type="button">App Store</button>
+<button class="flex-1 h-8 rounded-lg font-label-sm text-label-sm text-slate-600 hover:text-slate-900 hover:bg-white/60 active:scale-95 transition-all duration-150 font-medium" type="button">Google Play</button>
+</div>
+<!-- Sort Select -->
+<div class="md:col-span-2">
+<div class="h-10 px-3.5 rounded-xl bg-slate-100/80 border border-slate-200 text-slate-800 font-label-md text-label-md flex items-center justify-between cursor-pointer hover:bg-white hover:border-purple-200 hover:shadow-xs active:scale-[0.98] transition-all duration-200 font-medium">
+<span class="truncate">Sort: Newest</span>
+<span class="material-symbols-outlined text-[16px] text-slate-400 shrink-0">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Second Line: Star Ratings & Theme Selector Bar -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100/80">
+<div class="flex flex-wrap items-center gap-4">
+<!-- Star Multiselect -->
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-slate-400 uppercase tracking-wider mr-1 font-bold">Rating:</span>
+<button class="h-7 px-3 rounded-lg bg-rose-50 border border-rose-200/80 text-rose-700 font-label-sm text-label-sm font-extrabold flex items-center gap-0.5 shadow-xs hover:scale-105 active:scale-95 transition-transform duration-150">1★</button>
+<button class="h-7 px-3 rounded-lg bg-rose-50 border border-rose-200/80 text-rose-700 font-label-sm text-label-sm font-extrabold flex items-center gap-0.5 shadow-xs hover:scale-105 active:scale-95 transition-transform duration-150">2★</button>
+<button class="h-7 px-2.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 hover:scale-105 active:scale-95 font-label-sm text-label-sm transition-all duration-150 font-medium">3★</button>
+<button class="h-7 px-2.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 hover:scale-105 active:scale-95 font-label-sm text-label-sm transition-all duration-150 font-medium">4★</button>
+<button class="h-7 px-2.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 hover:scale-105 active:scale-95 font-label-sm text-label-sm transition-all duration-150 font-medium">5★</button>
+</div>
+<div class="h-4 w-px bg-slate-200 hidden md:block"></div>
+<!-- Themes Pill Multiselect -->
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-slate-400 uppercase tracking-wider mr-1 font-bold">Themes:</span>
+<button class="h-7 px-3 rounded-full bg-gradient-to-r from-primary-container to-primary text-white font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-[0_2px_8px_rgba(109,40,217,0.3)] hover:scale-105 hover:shadow-[0_4px_12px_rgba(109,40,217,0.4)] active:scale-95 transition-all duration-150">
+<span>App updates &amp; charts</span>
+<span class="material-symbols-outlined text-[13px]">check</span>
+</button>
+<button class="h-7 px-3 rounded-full bg-slate-100 hover:bg-white hover:border-rose-200 hover:scale-105 active:scale-95 border border-slate-200/80 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-150 font-semibold shadow-xs">
+<span class="w-2 h-2 rounded-full bg-rose-600 shadow-[0_0_6px_rgba(225,29,72,0.4)]"></span>
+<span>Customer support</span>
+</button>
+<button class="h-7 px-3 rounded-full bg-slate-100 hover:bg-white hover:border-emerald-200 hover:scale-105 active:scale-95 border border-slate-200/80 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-150 font-semibold shadow-xs">
+<span class="w-2 h-2 rounded-full bg-emerald-600 shadow-[0_0_6px_rgba(5,150,105,0.4)]"></span>
+<span>Mutual funds &amp; ease of use</span>
+</button>
+<button class="h-7 px-3 rounded-full bg-slate-100 hover:bg-white hover:border-indigo-200 hover:scale-105 active:scale-95 border border-slate-200/80 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-150 font-semibold shadow-xs">
+<span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+<span>Trading &amp; markets</span>
+</button>
+</div>
+</div>
+<button class="font-label-sm text-label-sm text-primary hover:text-primary-container hover:underline active:scale-95 font-bold transition-all duration-150">
+          Reset all filters
+        </button>
+</div>
+</div>
+<!-- Active Filter Ribbon & State Switcher -->
+<div class="flex flex-wrap items-center justify-between gap-3">
+<div class="flex flex-wrap items-center gap-2">
+<div class="font-label-md text-label-md text-slate-800 font-bold flex items-center gap-1.5 mr-2">
+<span>Filtered Cohort:</span>
+<span class="px-2.5 py-0.5 rounded-full bg-purple-100/90 text-primary-container font-extrabold font-mono-num border border-purple-200/70 shadow-xs hover:bg-purple-200/80 transition-colors cursor-default">119 reviews</span>
+</div>
+<!-- Active Filter Tokens -->
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xs text-slate-700 font-label-sm text-label-sm font-semibold hover:bg-purple-50 hover:border-purple-200/70 transition-all duration-150">
+<span>W44 (26 Oct–1 Nov)</span>
+<span class="material-symbols-outlined text-[14px] cursor-pointer text-slate-400 hover:text-rose-600 hover:scale-110 active:scale-90 transition-all duration-150">close</span>
+</span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xs text-slate-700 font-label-sm text-label-sm font-semibold hover:bg-purple-50 hover:border-purple-200/70 transition-all duration-150">
+<span>Ratings: 1–2★</span>
+<span class="material-symbols-outlined text-[14px] cursor-pointer text-slate-400 hover:text-rose-600 hover:scale-110 active:scale-90 transition-all duration-150">close</span>
+</span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xs text-slate-700 font-label-sm text-label-sm font-semibold hover:bg-purple-50 hover:border-purple-200/70 transition-all duration-150">
+<span>App updates &amp; charts</span>
+<span class="material-symbols-outlined text-[14px] cursor-pointer text-slate-400 hover:text-rose-600 hover:scale-110 active:scale-90 transition-all duration-150">close</span>
+</span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-xs text-slate-700 font-label-sm text-label-sm font-semibold hover:bg-purple-50 hover:border-purple-200/70 transition-all duration-150">
+<span>Keyword: "chart latency"</span>
+<span class="material-symbols-outlined text-[14px] cursor-pointer text-slate-400 hover:text-rose-600 hover:scale-110 active:scale-90 transition-all duration-150">close</span>
+</span>
+</div>
+<!-- State Demonstration Tabs -->
+<div class="inline-flex p-1 bg-slate-100/90 border border-slate-200/80 rounded-xl text-slate-600">
+<button class="h-7 px-3.5 rounded-lg bg-white text-primary font-label-sm text-label-sm font-extrabold shadow-xs border border-slate-200/60 active:scale-95 transition-all duration-200" id="btn-tab-active" onclick="switchState('active')">
+          Active Feed (119)
+        </button>
+<button class="h-7 px-3 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 active:scale-95 font-label-sm text-label-sm transition-all duration-200 font-medium" id="btn-tab-skeleton" onclick="switchState('skeleton')">
+          Skeleton Preview
+        </button>
+<button class="h-7 px-3 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 active:scale-95 font-label-sm text-label-sm transition-all duration-200 font-medium" id="btn-tab-empty" onclick="switchState('empty')">
+          Empty State
+        </button>
+</div>
+</div>
+<!-- Main Two-Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- LEFT COLUMN: Review Feed (~70% -> 8 cols) -->
+<div class="lg:col-span-8 space-y-4">
+<!-- ACTIVE FEED CONTAINER -->
+<div class="space-y-4" id="view-active-feed">
+<!-- Card 1: PINNED EXCELLENCE CARD (Radiant Dimensional Pinned Treatment) -->
+<div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 card-glass-glow border border-violet-300/80 hover:border-violet-400 shadow-[0_8px_30px_-4px_rgba(109,40,217,0.14)] hover:shadow-xl hover:shadow-purple-500/15 relative overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 group/card">
+<!-- Luminous Pinned Top Accent Line -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-600 via-primary-container to-fuchsia-500"></div>
+<div class="flex items-center justify-between gap-2 mb-3.5">
+<div class="flex flex-wrap items-center gap-2">
+<!-- Star Rating -->
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200/80 text-rose-700 font-label-md text-label-md font-extrabold shadow-xs">
+                  1★
+                </span>
+<span class="font-label-sm text-label-sm text-slate-500 font-medium">28 Oct 2026, 14:22 UTC</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-semibold border border-slate-200/70">App Store (iOS)</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-purple-50 text-primary-container font-bold border border-purple-100">v4.12.0</span>
+<!-- Theme Tag -->
+<span class="font-label-sm text-label-sm px-3 py-0.5 rounded-full bg-purple-100/90 text-primary-container font-extrabold border border-purple-200/70">
+                  App updates &amp; charts
+                </span>
+<!-- Semantic Confidence Tag -->
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 font-semibold border border-emerald-200/80 flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[13px] text-emerald-600">psychology</span> High confidence 98%
+                </span>
+</div>
+<!-- Pinned Status Badge -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-primary-container to-primary text-white font-label-sm text-label-sm font-bold shrink-0 shadow-[0_2px_10px_rgba(109,40,217,0.35)] group-hover/card:shadow-[0_3px_14px_rgba(109,40,217,0.5)] transition-shadow duration-300">
+<span class="material-symbols-outlined text-[14px]">push_pin</span> Pinned for W45 Pulse
+              </span>
+</div>
+<!-- Reviewer Meta / Scrubbed Info -->
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-slate-500 mb-3 flex-wrap">
+<span class="font-bold text-slate-900">Author:</span>
+<span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 font-mono text-[11px] font-semibold border border-slate-200/60 hover:border-purple-300 hover:bg-purple-50/70 hover:text-purple-800 transition-colors duration-150 cursor-pointer">[name: redacted]</span>
+<span class="text-slate-300">•</span>
+<span class="font-medium text-slate-600">Tier: Pro Trader</span>
+<span class="text-slate-300">•</span>
+<span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 font-mono text-[11px] font-semibold border border-slate-200/60 hover:border-purple-300 hover:bg-purple-50/70 hover:text-purple-800 transition-colors duration-150 cursor-pointer">[account_id: ••••8291]</span>
+</div>
+<!-- Review Title & Scrubbed Body -->
+<div class="space-y-2">
+<h3 class="font-title-md text-title-md text-slate-900 font-extrabold tracking-tight group-hover/card:text-purple-950 transition-colors">
+                Latest candle charts completely freeze during morning volatility
+              </h3>
+<p class="font-body-md text-body-md text-slate-700 leading-relaxed font-normal" id="review-text-1">
+                Ever since the v4.12.0 update on Tuesday, whenever I open the 5-minute candle charts for major indices around market open, the UI stutters for 6-8 seconds before outright crashing back to the Home screen. I reached out to <span class="px-2 py-0.5 rounded-lg bg-purple-50 text-primary-container font-mono text-[12px] font-semibold border border-purple-100/80 hover:border-purple-300 hover:bg-purple-100/80 hover:text-purple-900 transition-colors duration-150 cursor-pointer">[email: redacted]</span> with full crash diagnostics but haven’t heard anything back. This has cost me execution timing on two major orders already. Rolling back to 4.11 seemed impossible. Please patch this immediately.
+              </p>
+</div>
+<!-- Actions Toolbar -->
+<div class="mt-4 pt-3.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<button class="h-8 px-3 rounded-xl bg-purple-50 hover:bg-purple-100 text-primary-container border border-purple-200/70 transition-all duration-200 active:scale-95 font-label-sm text-label-sm font-bold flex items-center gap-1.5 shadow-xs" type="button">
+<span class="material-symbols-outlined text-[15px]">keep_off</span>
+<span>Unpin from Pulse</span>
+</button>
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 hover:text-purple-700 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-200 active:scale-95 font-semibold border border-slate-200/60" type="button">
+<span class="material-symbols-outlined text-[15px] text-slate-500 group-hover:text-purple-600">share</span>
+<span>Link Linear/Jira</span>
+</button>
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 hover:text-purple-700 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-200 active:scale-95 font-semibold border border-slate-200/60" type="button">
+<span class="material-symbols-outlined text-[15px] text-slate-500 group-hover:text-purple-600">content_copy</span>
+<span>Copy permalink</span>
+</button>
+</div>
+<!-- Triage Controls -->
+<div class="flex items-center gap-1.5 text-slate-500">
+<span class="font-label-sm text-label-sm mr-1 font-semibold text-slate-400">Triage:</span>
+<button class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-purple-50 hover:text-primary active:scale-90 flex items-center justify-center text-slate-600 transition-all duration-200" type="button">
+<span class="material-symbols-outlined text-[16px]">thumb_up</span>
+</button>
+<button class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-rose-50 hover:text-rose-600 active:scale-90 flex items-center justify-center text-slate-600 transition-all duration-200" type="button">
+<span class="material-symbols-outlined text-[16px]">thumb_down</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2: RICH UNPINNED REVIEW WITH PII PILLS -->
+<div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 card-glass-glow border border-white/80 hover:border-purple-200/80 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 group/card">
+<div class="flex items-center justify-between gap-2 mb-3.5">
+<div class="flex flex-wrap items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200/80 text-rose-700 font-label-md text-label-md font-extrabold shadow-xs">1★</span>
+<span class="font-label-sm text-label-sm text-slate-500 font-medium">29 Oct 2026, 09:14 UTC</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-semibold border border-slate-200/70">Google Play</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-purple-50 text-primary-container font-bold border border-purple-100">v4.12.0</span>
+<span class="font-label-sm text-label-sm px-3 py-0.5 rounded-full bg-purple-100/90 text-primary-container font-extrabold border border-purple-200/70">
+                  App updates &amp; charts
+                </span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 font-semibold border border-emerald-200/80 flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[13px] text-emerald-600">psychology</span> High confidence 95%
+                </span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-semibold border border-indigo-100 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-indigo-600">format_quote</span> Quote-eligible
+                </span>
+</div>
+<!-- Pin Trigger Action -->
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-gradient-to-r hover:from-primary-container hover:to-primary hover:text-white text-slate-800 border border-slate-200/70 active:scale-95 transition-all duration-200 font-label-sm text-label-sm font-bold flex items-center gap-1.5 shrink-0 shadow-xs" type="button">
+<span class="material-symbols-outlined text-[15px]">push_pin</span>
+<span>Pin as quote</span>
+</button>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-slate-500 mb-3 flex-wrap">
+<span class="font-bold text-slate-900">Author:</span>
+<span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 font-mono text-[11px] font-semibold border border-slate-200/60 hover:border-purple-300 hover:bg-purple-50/70 hover:text-purple-800 transition-colors duration-150 cursor-pointer">[handle: redacted_user_99]</span>
+<span class="text-slate-300">•</span>
+<span class="font-medium text-slate-600">Device: Pixel 8 Pro</span>
+<span class="text-slate-300">•</span>
+<span class="font-medium text-slate-600">Android 15</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-title-md text-title-md text-slate-900 font-extrabold tracking-tight group-hover/card:text-purple-950 transition-colors">
+                Chart rendering lag makes limit order adjustments impossible
+              </h3>
+<p class="font-body-md text-body-md text-slate-700 leading-relaxed line-clamp-2 font-normal" id="review-text-2">
+                Dragging price lines on the new vector canvas triggers extreme frame drops. On previous builds, moving a stop-loss was instant; now it takes 2 full seconds of touch response delay. Customer representative <span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 font-mono text-[11px] font-semibold border border-slate-200/60 hover:border-purple-300 hover:bg-purple-50/70 hover:text-purple-800 transition-colors duration-150 cursor-pointer">[staff_name: redacted]</span> told me to clear the cache, but cache clears do not resolve GPU shader lag on newer chipsets.
+              </p>
+<button class="font-label-sm text-label-sm text-primary font-bold hover:text-primary-container hover:underline cursor-pointer flex items-center gap-0.5 transition-colors duration-150 active:scale-95" onclick="toggleExpand('review-text-2', this)">
+                Show more
+              </button>
+</div>
+<div class="mt-4 pt-3.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 hover:text-purple-700 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-200 active:scale-95 font-semibold border border-slate-200/60" type="button">
+<span class="material-symbols-outlined text-[15px] text-slate-500">share</span>
+<span>Link to Jira #ENG-4891</span>
+</button>
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 hover:text-purple-700 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-200 active:scale-95 font-semibold border border-slate-200/60" type="button">
+<span class="material-symbols-outlined text-[15px] text-slate-500">content_copy</span>
+<span>Copy permalink</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 text-slate-500">
+<span class="font-label-sm text-label-sm mr-1 font-semibold text-slate-400">Triage:</span>
+<button class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-purple-50 hover:text-primary active:scale-90 flex items-center justify-center text-slate-600 transition-all duration-200" type="button"><span class="material-symbols-outlined text-[16px]">thumb_up</span></button>
+<button class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-rose-50 hover:text-rose-600 active:scale-90 flex items-center justify-center text-slate-600 transition-all duration-200" type="button"><span class="material-symbols-outlined text-[16px]">thumb_down</span></button>
+</div>
+</div>
+</div>
+<!-- Card 3: 2-STAR REVIEW -->
+<div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 card-glass-glow border border-white/80 hover:border-purple-200/80 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 group/card">
+<div class="flex items-center justify-between gap-2 mb-3.5">
+<div class="flex flex-wrap items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200/80 text-rose-700 font-label-md text-label-md font-extrabold shadow-xs">2★</span>
+<span class="font-label-sm text-label-sm text-slate-500 font-medium">30 Oct 2026, 17:45 UTC</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-semibold border border-slate-200/70">App Store (iOS)</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-purple-50 text-primary-container font-bold border border-purple-100">v4.12.0</span>
+<span class="font-label-sm text-label-sm px-3 py-0.5 rounded-full bg-purple-100/90 text-primary-container font-extrabold border border-purple-200/70">
+                  App updates &amp; charts
+                </span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 font-semibold border border-amber-200 flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[13px] text-amber-600">psychology</span> Moderate confidence 78%
+                </span>
+</div>
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-gradient-to-r hover:from-primary-container hover:to-primary hover:text-white text-slate-800 border border-slate-200/70 active:scale-95 transition-all duration-200 font-label-sm text-label-sm font-bold flex items-center gap-1.5 shrink-0 shadow-xs" type="button">
+<span class="material-symbols-outlined text-[15px]">push_pin</span>
+<span>Pin as quote</span>
+</button>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-slate-500 mb-3 flex-wrap">
+<span class="font-bold text-slate-900">Author:</span>
+<span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 font-mono text-[11px] font-semibold border border-slate-200/60 hover:border-purple-300 hover:bg-purple-50/70 hover:text-purple-800 transition-colors duration-150 cursor-pointer">[name: redacted]</span>
+<span class="text-slate-300">•</span>
+<span class="font-medium text-slate-600">Region: US-East</span>
+<span class="text-slate-300">•</span>
+<span class="font-medium text-slate-600">Account tenure: 4 years</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-title-md text-title-md text-slate-900 font-extrabold tracking-tight group-hover/card:text-purple-950 transition-colors">
+                Used to be the cleanest charting app in fintech, now bloated and sluggish
+              </h3>
+<p class="font-body-md text-body-md text-slate-700 leading-relaxed line-clamp-2 font-normal" id="review-text-3">
+                I do love the platform fundamentals, but someone at design or mobile eng decided to replace the swift lightweight charting with heavy animations that kill battery life. Phone runs hot within 10 minutes of watching order flow. Ticket <span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 font-mono text-[11px] font-semibold border border-slate-200/60 hover:border-purple-300 hover:bg-purple-50/70 hover:text-purple-800 transition-colors duration-150 cursor-pointer">[ticket_id: #99318]</span> was closed with a bot response. Please prioritize performance budgets over flashy transitions.
+              </p>
+<button class="font-label-sm text-label-sm text-primary font-bold hover:text-primary-container hover:underline cursor-pointer flex items-center gap-0.5 transition-colors duration-150 active:scale-95" onclick="toggleExpand('review-text-3', this)">
+                Show more
+              </button>
+</div>
+<div class="mt-4 pt-3.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 hover:text-purple-700 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-200 active:scale-95 font-semibold border border-slate-200/60" type="button">
+<span class="material-symbols-outlined text-[15px] text-slate-500">share</span>
+<span>Link Linear/Jira</span>
+</button>
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 hover:text-purple-700 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-200 active:scale-95 font-semibold border border-slate-200/60" type="button">
+<span class="material-symbols-outlined text-[15px] text-slate-500">content_copy</span>
+<span>Copy permalink</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 text-slate-500">
+<span class="font-label-sm text-label-sm mr-1 font-semibold text-slate-400">Triage:</span>
+<button class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-purple-50 hover:text-primary active:scale-90 flex items-center justify-center text-slate-600 transition-all duration-200" type="button"><span class="material-symbols-outlined text-[16px]">thumb_up</span></button>
+<button class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-rose-50 hover:text-rose-600 active:scale-90 flex items-center justify-center text-slate-600 transition-all duration-200" type="button"><span class="material-symbols-outlined text-[16px]">thumb_down</span></button>
+</div>
+</div>
+</div>
+<!-- Card 4: 1-STAR GOOGLE PLAY HIGH CONFIDENCE -->
+<div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 card-glass-glow border border-white/80 hover:border-purple-200/80 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 group/card">
+<div class="flex items-center justify-between gap-2 mb-3.5">
+<div class="flex flex-wrap items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200/80 text-rose-700 font-label-md text-label-md font-extrabold shadow-xs">1★</span>
+<span class="font-label-sm text-label-sm text-slate-500 font-medium">31 Oct 2026, 11:03 UTC</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-semibold border border-slate-200/70">Google Play</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-purple-50 text-primary-container font-bold border border-purple-100">v4.12.0</span>
+<span class="font-label-sm text-label-sm px-3 py-0.5 rounded-full bg-purple-100/90 text-primary-container font-extrabold border border-purple-200/70">
+                  App updates &amp; charts
+                </span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 font-semibold border border-emerald-200/80 flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[13px] text-emerald-600">psychology</span> High confidence 99%
+                </span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-semibold border border-indigo-100 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-indigo-600">format_quote</span> Quote-eligible
+                </span>
+</div>
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-gradient-to-r hover:from-primary-container hover:to-primary hover:text-white text-slate-800 border border-slate-200/70 active:scale-95 transition-all duration-200 font-label-sm text-label-sm font-bold flex items-center gap-1.5 shrink-0 shadow-xs" type="button">
+<span class="material-symbols-outlined text-[15px]">push_pin</span>
+<span>Pin as quote</span>
+</button>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-slate-500 mb-3 flex-wrap">
+<span class="font-bold text-slate-900">Author:</span>
+<span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 font-mono text-[11px] font-semibold border border-slate-200/60 hover:border-purple-300 hover:bg-purple-50/70 hover:text-purple-800 transition-colors duration-150 cursor-pointer">[username: redacted]</span>
+<span class="text-slate-300">•</span>
+<span class="font-medium text-slate-600">Verified Install</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-title-md text-title-md text-slate-900 font-extrabold tracking-tight group-hover/card:text-purple-950 transition-colors">
+                White flash on chart refresh in dark mode blinds users at night
+              </h3>
+<p class="font-body-md text-body-md text-slate-700 leading-relaxed line-clamp-2 font-normal" id="review-text-4">
+                In dark mode, when switching between watchlist items, the chart container unloads the canvas and flashes a pure white blank background for 300ms before painting dark candles. My trading room is completely dark and this is unacceptable. Please fix chart canvas unmount background color.
+              </p>
+<button class="font-label-sm text-label-sm text-primary font-bold hover:text-primary-container hover:underline cursor-pointer flex items-center gap-0.5 transition-colors duration-150 active:scale-95" onclick="toggleExpand('review-text-4', this)">
+                Show more
+              </button>
+</div>
+<div class="mt-4 pt-3.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 hover:text-purple-700 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-200 active:scale-95 font-semibold border border-slate-200/60" type="button">
+<span class="material-symbols-outlined text-[15px] text-slate-500">share</span>
+<span>Link Linear/Jira</span>
+</button>
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 hover:text-purple-700 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-200 active:scale-95 font-semibold border border-slate-200/60" type="button">
+<span class="material-symbols-outlined text-[15px] text-slate-500">content_copy</span>
+<span>Copy permalink</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 text-slate-500">
+<span class="font-label-sm text-label-sm mr-1 font-semibold text-slate-400">Triage:</span>
+<button class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-purple-50 hover:text-primary active:scale-90 flex items-center justify-center text-slate-600 transition-all duration-200" type="button"><span class="material-symbols-outlined text-[16px]">thumb_up</span></button>
+<button class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-rose-50 hover:text-rose-600 active:scale-90 flex items-center justify-center text-slate-600 transition-all duration-200" type="button"><span class="material-symbols-outlined text-[16px]">thumb_down</span></button>
+</div>
+</div>
+</div>
+<!-- Card 5: 2-STAR TOUCH GESTURE ISSUE -->
+<div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 card-glass-glow border border-white/80 hover:border-purple-200/80 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 group/card">
+<div class="flex items-center justify-between gap-2 mb-3.5">
+<div class="flex flex-wrap items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200/80 text-rose-700 font-label-md text-label-md font-extrabold shadow-xs">2★</span>
+<span class="font-label-sm text-label-sm text-slate-500 font-medium">01 Nov 2026, 18:20 UTC</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-semibold border border-slate-200/70">App Store (iOS)</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-purple-50 text-primary-container font-bold border border-purple-100">v4.12.0</span>
+<span class="font-label-sm text-label-sm px-3 py-0.5 rounded-full bg-purple-100/90 text-primary-container font-extrabold border border-purple-200/70">
+                  App updates &amp; charts
+                </span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 font-semibold border border-emerald-200/80 flex items-center gap-1 shadow-xs">
+<span class="material-symbols-outlined text-[13px] text-emerald-600">psychology</span> High confidence 94%
+                </span>
+</div>
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-gradient-to-r hover:from-primary-container hover:to-primary hover:text-white text-slate-800 border border-slate-200/70 active:scale-95 transition-all duration-200 font-label-sm text-label-sm font-bold flex items-center gap-1.5 shrink-0 shadow-xs" type="button">
+<span class="material-symbols-outlined text-[15px]">push_pin</span>
+<span>Pin as quote</span>
+</button>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-slate-500 mb-3 flex-wrap">
+<span class="font-bold text-slate-900">Author:</span>
+<span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 font-mono text-[11px] font-semibold border border-slate-200/60 hover:border-purple-300 hover:bg-purple-50/70 hover:text-purple-800 transition-colors duration-150 cursor-pointer">[author_id: 88471]</span>
+<span class="text-slate-300">•</span>
+<span class="font-medium text-slate-600">Device: iPad Pro M2</span>
+</div>
+<div class="space-y-2">
+<h3 class="font-title-md text-title-md text-slate-900 font-extrabold tracking-tight group-hover/card:text-purple-950 transition-colors">
+                Pinch to zoom gesture on tablet charts locks vertical scale
+              </h3>
+<p class="font-body-md text-body-md text-slate-700 leading-relaxed line-clamp-2 font-normal" id="review-text-5">
+                On iPad OS 18, pinching horizontally zooms both axes simultaneously, completely flattening the price variance. Before 4.12, the time axis and price axis could be scaled independently with a two-finger pinch. Please bring back decoupled axis scaling.
+              </p>
+<button class="font-label-sm text-label-sm text-primary font-bold hover:text-primary-container hover:underline cursor-pointer flex items-center gap-0.5 transition-colors duration-150 active:scale-95" onclick="toggleExpand('review-text-5', this)">
+                Show more
+              </button>
+</div>
+<div class="mt-4 pt-3.5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 hover:text-purple-700 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-200 active:scale-95 font-semibold border border-slate-200/60" type="button">
+<span class="material-symbols-outlined text-[15px] text-slate-500">share</span>
+<span>Link Linear/Jira</span>
+</button>
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 hover:text-purple-700 text-slate-700 font-label-sm text-label-sm flex items-center gap-1.5 transition-all duration-200 active:scale-95 font-semibold border border-slate-200/60" type="button">
+<span class="material-symbols-outlined text-[15px] text-slate-500">content_copy</span>
+<span>Copy permalink</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 text-slate-500">
+<span class="font-label-sm text-label-sm mr-1 font-semibold text-slate-400">Triage:</span>
+<button class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-purple-50 hover:text-primary active:scale-90 flex items-center justify-center text-slate-600 transition-all duration-200" type="button"><span class="material-symbols-outlined text-[16px]">thumb_up</span></button>
+<button class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-rose-50 hover:text-rose-600 active:scale-90 flex items-center justify-center text-slate-600 transition-all duration-200" type="button"><span class="material-symbols-outlined text-[16px]">thumb_down</span></button>
+</div>
+</div>
+</div>
+<!-- Pagination Bar -->
+<div class="flex items-center justify-between pt-3 pb-6">
+<span class="font-label-sm text-label-sm text-slate-500 font-medium">
+              Showing 1–5 of 119 matching reviews
+            </span>
+<div class="flex items-center gap-1.5">
+<button class="h-8 px-3 rounded-xl bg-slate-100 text-slate-400 hover:text-slate-700 hover:bg-slate-200/70 active:scale-95 font-label-sm text-label-sm transition-all duration-150 disabled:opacity-40 disabled:hover:scale-100 disabled:hover:bg-slate-100 disabled:cursor-not-allowed font-medium" disabled="">Previous</button>
+<button class="h-8 w-8 rounded-xl bg-gradient-to-r from-primary-container to-primary text-white font-label-sm text-label-sm font-bold shadow-xs hover:shadow-md hover:shadow-purple-500/20 active:scale-90 transition-all duration-150">1</button>
+<button class="h-8 w-8 rounded-xl bg-slate-100 hover:bg-slate-200 hover:text-purple-700 active:scale-90 text-slate-700 font-label-sm text-label-sm transition-all duration-150 font-medium">2</button>
+<button class="h-8 w-8 rounded-xl bg-slate-100 hover:bg-slate-200 hover:text-purple-700 active:scale-90 text-slate-700 font-label-sm text-label-sm transition-all duration-150 font-medium">3</button>
+<span class="text-slate-400 text-[12px] px-1">…</span>
+<button class="h-8 w-8 rounded-xl bg-slate-100 hover:bg-slate-200 hover:text-purple-700 active:scale-90 text-slate-700 font-label-sm text-label-sm transition-all duration-150 font-medium">24</button>
+<button class="h-8 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 hover:text-purple-700 active:scale-95 text-slate-700 font-label-sm text-label-sm transition-all duration-150 font-medium">Next</button>
+</div>
+</div>
+</div>
+<!-- SKELETON PREVIEW CONTAINER (Toggled via tabs) -->
+<div class="hidden space-y-4" id="view-skeleton-feed">
+<!-- Skeleton Row 1 -->
+<div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 card-glass-glow border border-white/80 space-y-4 animate-pulse">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-12 h-6 bg-slate-200 rounded-full"></div>
+<div class="w-28 h-4 bg-slate-100 rounded-full"></div>
+<div class="w-20 h-4 bg-slate-100 rounded-full"></div>
+<div class="w-32 h-6 bg-purple-100 rounded-full"></div>
+</div>
+<div class="w-24 h-8 bg-slate-100 rounded-xl"></div>
+</div>
+<div class="w-48 h-3.5 bg-slate-100 rounded-full"></div>
+<div class="w-3/4 h-5 bg-slate-200 rounded-lg"></div>
+<div class="space-y-2 pt-1">
+<div class="w-full h-4 bg-slate-100 rounded-full"></div>
+<div class="w-5/6 h-4 bg-slate-100 rounded-full"></div>
+<div class="w-2/3 h-4 bg-slate-100 rounded-full"></div>
+</div>
+<div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-24 h-8 bg-slate-100 rounded-xl"></div>
+<div class="w-20 h-8 bg-slate-100 rounded-xl"></div>
+</div>
+<div class="w-16 h-8 bg-slate-100 rounded-xl"></div>
+</div>
+</div>
+<!-- Skeleton Row 2 -->
+<div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 card-glass-glow border border-white/80 space-y-4 animate-pulse">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-12 h-6 bg-slate-200 rounded-full"></div>
+<div class="w-28 h-4 bg-slate-100 rounded-full"></div>
+<div class="w-20 h-4 bg-slate-100 rounded-full"></div>
+<div class="w-28 h-6 bg-purple-100 rounded-full"></div>
+</div>
+<div class="w-24 h-8 bg-slate-100 rounded-xl"></div>
+</div>
+<div class="w-40 h-3.5 bg-slate-100 rounded-full"></div>
+<div class="w-2/3 h-5 bg-slate-200 rounded-lg"></div>
+<div class="space-y-2 pt-1">
+<div class="w-full h-4 bg-slate-100 rounded-full"></div>
+<div class="w-4/5 h-4 bg-slate-100 rounded-full"></div>
+</div>
+<div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-24 h-8 bg-slate-100 rounded-xl"></div>
+</div>
+<div class="w-16 h-8 bg-slate-100 rounded-xl"></div>
+</div>
+</div>
+</div>
+<!-- EMPTY STATE CONTAINER (Toggled via tabs) -->
+<div class="hidden bg-white/95 backdrop-blur-xl rounded-3xl p-12 card-glass-glow border border-white/80 text-center" id="view-empty-state">
+<div class="w-16 h-16 rounded-2xl bg-purple-50 text-primary-container mx-auto flex items-center justify-center mb-4 border border-purple-100/80 shadow-xs">
+<span class="material-symbols-outlined text-[32px]">filter_alt_off</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-slate-900 font-extrabold tracking-tight">
+            No feedback matching these filters
+          </h3>
+<p class="font-body-md text-body-md text-slate-500 max-w-md mx-auto mt-2 mb-6 font-normal">
+            We couldn’t find any customer feedback matching the current filters. Try broadening your rating range or removing specific search keywords.
+          </p>
+<div class="flex items-center justify-center gap-3">
+<button class="h-10 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-800 font-label-md text-label-md transition-all duration-200 font-semibold border border-slate-200/80" onclick="switchState('active')">
+              Reset Rating Filter
+            </button>
+<button class="h-10 px-5 rounded-xl bg-gradient-to-r from-primary-container to-primary text-white hover:brightness-105 active:scale-95 font-label-md text-label-md shadow-[0_4px_12px_rgba(109,40,217,0.3)] transition-all duration-200 font-bold" onclick="switchState('active')">
+              Reset All Filters
+            </button>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Dataset Analysis Panel (~30% -> 4 cols, Sticky) -->
+<div class="lg:col-span-4 space-y-5 sticky top-20">
+<!-- Filter Cohort Snapshot Card -->
+<div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 card-glass-glow border border-white/80 hover:border-slate-200 hover:shadow-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] space-y-5 group/cohort">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-slate-400 font-bold">Cohort Intelligence</span>
+<h2 class="font-title-md text-title-md text-slate-900 font-extrabold">119 Active Reviews</h2>
+</div>
+<span class="w-9 h-9 rounded-xl bg-purple-50 text-primary flex items-center justify-center border border-purple-100 shadow-xs group-hover/cohort:scale-105 group-hover/cohort:bg-purple-100 transition-all duration-200">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+</span>
+</div>
+<!-- Sentiment & CSAT Micro-Cards with Luminous Radiant Styling -->
+<div class="grid grid-cols-2 gap-3">
+<div class="p-3.5 rounded-2xl bg-gradient-to-br from-rose-50/70 to-white border border-rose-200/80 shadow-xs hover:shadow-md hover:border-rose-300 hover:-translate-y-0.5 transition-all duration-200">
+<div class="font-label-sm text-label-sm text-slate-500 font-bold">Net Sentiment</div>
+<div class="flex items-baseline gap-1.5 mt-1 font-mono-num">
+<span class="font-metric-md text-metric-md text-rose-600 font-extrabold">-74</span>
+<span class="font-label-sm text-label-sm text-rose-600 font-bold">▼ 18pt</span>
+</div>
+<span class="text-[11px] text-slate-500 mt-1 block font-medium">Heavy negative skew</span>
+</div>
+<div class="p-3.5 rounded-2xl bg-gradient-to-br from-purple-50/50 to-white border border-purple-100/90 shadow-xs hover:shadow-md hover:border-purple-300 hover:-translate-y-0.5 transition-all duration-200">
+<div class="font-label-sm text-label-sm text-slate-500 font-bold">Avg Cohort CSAT</div>
+<div class="flex items-baseline gap-1 mt-1 font-mono-num">
+<span class="font-metric-md text-metric-md text-slate-900 font-extrabold">1.8</span>
+<span class="text-amber-500 text-lg font-bold">★</span>
+<span class="font-label-sm text-label-sm text-rose-600 font-bold ml-1">▼ 0.9★</span>
+</div>
+<span class="text-[11px] text-slate-500 mt-1 block font-medium">vs 4.2★ overall</span>
+</div>
+</div>
+<!-- Theme Mix Breakdown (Progress Segmented) -->
+<div class="space-y-2.5 pt-1">
+<div class="flex items-center justify-between text-slate-900">
+<span class="font-label-md text-label-md font-bold">Theme Composition</span>
+<span class="font-label-sm text-label-sm text-slate-500 font-medium">100% indexed</span>
+</div>
+<!-- Segmented Bar -->
+<div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden flex p-0.5 gap-0.5">
+<div class="h-full bg-gradient-to-r from-violet-600 to-purple-500 rounded-l-full shadow-[0_1px_4px_rgba(109,40,217,0.3)]" style="width: 68%;" title="App updates &amp; charts: 68%"></div>
+<div class="h-full bg-gradient-to-r from-rose-500 to-red-600 shadow-[0_1px_4px_rgba(225,29,72,0.3)]" style="width: 18%;" title="Customer support: 18%"></div>
+<div class="h-full bg-indigo-500 rounded-r-full" style="width: 14%;" title="Trading &amp; markets: 14%"></div>
+</div>
+<!-- Legend Items -->
+<div class="space-y-1.5 pt-1 text-slate-800 font-label-sm text-label-sm font-mono-num">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container shadow-[0_0_6px_rgba(109,40,217,0.4)]"></span>
+<span class="font-sans font-medium text-slate-700">App updates &amp; charts</span>
+</div>
+<span class="font-extrabold text-slate-900">68% <span class="text-slate-400 font-normal">(81)</span></span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-rose-600 shadow-[0_0_6px_rgba(225,29,72,0.4)]"></span>
+<span class="font-sans font-medium text-slate-700">Customer support</span>
+</div>
+<span class="font-extrabold text-slate-900">18% <span class="text-slate-400 font-normal">(21)</span></span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+<span class="font-sans font-medium text-slate-700">Trading &amp; markets</span>
+</div>
+<span class="font-extrabold text-slate-900">14% <span class="text-slate-400 font-normal">(17)</span></span>
+</div>
+</div>
+</div>
+<!-- Star Rating Histogram -->
+<div class="space-y-2.5 pt-2 border-t border-slate-100">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-slate-900 font-bold">Rating Distribution</span>
+<span class="font-label-sm text-label-sm text-slate-500 font-medium">Volume</span>
+</div>
+<div class="space-y-2 font-mono-num">
+<!-- 1 Star -->
+<div class="flex items-center gap-2.5 font-label-sm text-label-sm group/bar cursor-pointer">
+<span class="w-6 text-slate-800 font-extrabold group-hover/bar:text-rose-600 transition-colors">1★</span>
+<div class="flex-1 h-2.5 rounded-full bg-slate-100 overflow-hidden p-0.5 group-hover/bar:bg-rose-100/50 transition-colors">
+<div class="h-full bg-gradient-to-r from-rose-500 to-red-600 rounded-full shadow-[0_1px_4px_rgba(225,29,72,0.3)] group-hover/bar:brightness-110 transition-all" style="width: 52%;"></div>
+</div>
+<span class="w-8 text-right font-extrabold text-slate-900">62</span>
+</div>
+<!-- 2 Star -->
+<div class="flex items-center gap-2.5 font-label-sm text-label-sm group/bar cursor-pointer">
+<span class="w-6 text-slate-800 font-extrabold group-hover/bar:text-rose-600 transition-colors">2★</span>
+<div class="flex-1 h-2.5 rounded-full bg-slate-100 overflow-hidden p-0.5 group-hover/bar:bg-rose-100/50 transition-colors">
+<div class="h-full bg-rose-400 rounded-full group-hover/bar:brightness-110 transition-all" style="width: 29%;"></div>
+</div>
+<span class="w-8 text-right font-extrabold text-slate-900">35</span>
+</div>
+<!-- 3 Star -->
+<div class="flex items-center gap-2.5 font-label-sm text-label-sm group/bar cursor-pointer">
+<span class="w-6 text-slate-700 font-bold group-hover/bar:text-slate-900 transition-colors">3★</span>
+<div class="flex-1 h-2.5 rounded-full bg-slate-100 overflow-hidden p-0.5 group-hover/bar:bg-slate-200 transition-colors">
+<div class="h-full bg-slate-400 rounded-full group-hover/bar:brightness-110 transition-all" style="width: 10%;"></div>
+</div>
+<span class="w-8 text-right font-bold text-slate-800">12</span>
+</div>
+<!-- 4 Star -->
+<div class="flex items-center gap-2.5 font-label-sm text-label-sm group/bar cursor-pointer">
+<span class="w-6 text-slate-700 font-bold group-hover/bar:text-emerald-700 transition-colors">4★</span>
+<div class="flex-1 h-2.5 rounded-full bg-slate-100 overflow-hidden p-0.5 group-hover/bar:bg-emerald-50 transition-colors">
+<div class="h-full bg-emerald-400 rounded-full group-hover/bar:brightness-110 transition-all" style="width: 5%;"></div>
+</div>
+<span class="w-8 text-right font-bold text-slate-800">6</span>
+</div>
+<!-- 5 Star -->
+<div class="flex items-center gap-2.5 font-label-sm text-label-sm group/bar cursor-pointer">
+<span class="w-6 text-slate-700 font-bold group-hover/bar:text-emerald-700 transition-colors">5★</span>
+<div class="flex-1 h-2.5 rounded-full bg-slate-100 overflow-hidden p-0.5 group-hover/bar:bg-emerald-50 transition-colors">
+<div class="h-full bg-emerald-600 rounded-full shadow-[0_1px_4px_rgba(5,150,105,0.3)] group-hover/bar:brightness-110 transition-all" style="width: 4%;"></div>
+</div>
+<span class="w-8 text-right font-bold text-slate-800">4</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Candidate Quotes for Executive Pulse Card (Dimensional Staging) -->
+<div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 card-glass-glow border border-white/80 hover:border-slate-200 hover:shadow-lg transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">format_quote</span>
+<h3 class="font-title-md text-title-md text-slate-900 font-extrabold tracking-tight">Pinned for Pulse</h3>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-purple-100 text-primary-container font-extrabold border border-purple-200">2 Selected</span>
+</div>
+<p class="font-label-sm text-label-sm text-slate-500 font-medium">
+            These qualitative signals will appear in the next executive digest for founders and VP Product.
+          </p>
+<div class="space-y-3">
+<!-- Pinned Quote Item 1 -->
+<div class="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/70 hover:border-violet-300 hover:bg-white hover:shadow-md space-y-2 relative transition-all duration-200 group/q1 shadow-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-extrabold text-rose-600">1★ · iOS · v4.12.0</span>
+<button class="text-slate-400 hover:text-rose-600 active:scale-90 transition-all" title="Remove from pulse">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-slate-800 italic leading-snug font-normal">
+                “Whenever I open the 5-minute candle charts for major indices around market open, the UI stutters for 6-8 seconds before outright crashing…”
+              </p>
+<div class="flex items-center justify-between pt-1">
+<span class="text-[11px] text-slate-500 font-medium">Theme: App updates &amp; charts</span>
+<button class="font-label-sm text-label-sm text-primary font-bold hover:underline hover:text-primary-container active:scale-95 transition-all">Preview</button>
+</div>
+</div>
+<!-- Pinned Quote Item 2 -->
+<div class="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/70 hover:border-violet-300 hover:bg-white hover:shadow-md space-y-2 relative transition-all duration-200 group/q2 shadow-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-extrabold text-rose-600">1★ · Android · v4.12.0</span>
+<button class="text-slate-400 hover:text-rose-600 active:scale-90 transition-all" title="Remove from pulse">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-slate-800 italic leading-snug font-normal">
+                “In dark mode, when switching watchlist items, the chart container flashes a pure white blank background for 300ms…”
+              </p>
+<div class="flex items-center justify-between pt-1">
+<span class="text-[11px] text-slate-500 font-medium">Theme: Dark mode contrast</span>
+<button class="font-label-sm text-label-sm text-primary font-bold hover:underline hover:text-primary-container active:scale-95 transition-all">Preview</button>
+</div>
+</div>
+</div>
+<button class="w-full h-10 rounded-xl bg-gradient-to-r from-primary-container to-primary text-white font-label-md text-label-md font-bold flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(109,40,217,0.3)] hover:brightness-110 hover:shadow-lg hover:shadow-purple-600/30 active:scale-[0.98] transition-all duration-200">
+<span class="material-symbols-outlined text-[16px]">preview</span>
+<span>Review in Pulse Composer</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function switchState(state) {
+    const activeFeed = document.getElementById('view-active-feed');
+    const skeletonFeed = document.getElementById('view-skeleton-feed');
+    const emptyState = document.getElementById('view-empty-state');
+
+    const btnActive = document.getElementById('btn-tab-active');
+    const btnSkeleton = document.getElementById('btn-tab-skeleton');
+    const btnEmpty = document.getElementById('btn-tab-empty');
+
+    // Reset visibility
+    activeFeed.classList.add('hidden');
+    skeletonFeed.classList.add('hidden');
+    emptyState.classList.add('hidden');
+
+    // Reset button states
+    [btnActive, btnSkeleton, btnEmpty].forEach(btn => {
+      btn.className = "h-7 px-3 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-white/60 active:scale-95 font-label-sm text-label-sm transition-all duration-200 font-medium";
+    });
+
+    if (state === 'active') {
+      activeFeed.classList.remove('hidden');
+      btnActive.className = "h-7 px-3.5 rounded-lg bg-white text-primary font-label-sm text-label-sm font-extrabold shadow-xs border border-slate-200/60 active:scale-95 transition-all duration-200";
+    } else if (state === 'skeleton') {
+      skeletonFeed.classList.remove('hidden');
+      btnSkeleton.className = "h-7 px-3.5 rounded-lg bg-white text-primary font-label-sm text-label-sm font-extrabold shadow-xs border border-slate-200/60 active:scale-95 transition-all duration-200";
+    } else if (state === 'empty') {
+      emptyState.classList.remove('hidden');
+      btnEmpty.className = "h-7 px-3.5 rounded-lg bg-white text-primary font-label-sm text-label-sm font-extrabold shadow-xs border border-slate-200/60 active:scale-95 transition-all duration-200";
+    }
+  }
+
+  function toggleExpand(id, btn) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (el.classList.contains('line-clamp-2')) {
+      el.classList.remove('line-clamp-2');
+      btn.innerText = 'Show less';
+    } else {
+      el.classList.add('line-clamp-2');
+      btn.innerText = 'Show more';
+    }
+  }
+</script></main><footer class="w-full bg-white/70 backdrop-blur-md border-t border-slate-200/60 py-4 mt-auto"><div class="max-w-[1440px] mx-auto px-6 flex items-center justify-between text-slate-500 font-label-sm text-label-sm"><span>Data as of 1 Nov 2026, 23:59 UTC · PII scrubbed &amp; anonymized</span><span class="font-semibold text-slate-700">Enterprise Intelligence v2.4</span></div></footer></div><input class="peer hidden" id="filter-drawer-toggle" type="checkbox"/><label class="fixed inset-0 bg-slate-900/30 backdrop-blur-xs z-50 hidden peer-checked:block transition-all" for="filter-drawer-toggle"></label><aside class="fixed top-0 right-0 h-full w-96 max-w-full bg-white/95 backdrop-blur-2xl shadow-[0_20px_50px_-8px_rgba(15,23,42,0.25)] border-l border-slate-200/80 z-50 translate-x-full peer-checked:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col"><div class="h-16 px-6 flex items-center justify-between border-b border-slate-100"><div class="flex items-center gap-2"><span class="font-title-md text-title-md font-bold text-slate-900">Filter Dataset</span><span class="font-label-sm text-label-sm bg-purple-100 text-primary-container px-2.5 py-0.5 rounded-full font-bold">4 Active</span></div><label class="cursor-pointer text-slate-400 hover:text-slate-700 p-1.5 rounded-xl hover:bg-slate-100 transition-colors" for="filter-drawer-toggle"><span class="material-symbols-outlined text-[20px]">close</span></label></div><div class="flex-1 overflow-y-auto px-6 py-5 flex flex-col gap-5"><div class="flex flex-col gap-1.5"><label class="font-label-md text-label-md font-bold text-slate-800">Search Feedback</label><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-slate-400 text-[18px]">search</span><input class="w-full h-10 pl-9 pr-3 rounded-xl bg-slate-100/80 border border-slate-200 text-slate-900 font-body-sm text-body-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all font-medium" placeholder="Filter keywords, friction points..." type="text"/></div></div><div class="flex flex-col gap-1.5"><label class="font-label-md text-label-md font-bold text-slate-800">Lookback Window</label><select class="w-full h-10 px-3 rounded-xl bg-slate-100/80 border border-slate-200 text-slate-900 font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all font-medium"><option>Last 7 Days (Week 44)</option><option>Last 14 Days</option><option>Last 30 Days</option><option>Quarter to Date</option></select></div><div class="flex flex-col gap-1.5"><label class="font-label-md text-label-md font-bold text-slate-800">Store Source</label><div class="grid grid-cols-2 gap-2"><button class="h-9 px-3 rounded-xl bg-gradient-to-r from-primary-container to-primary text-white font-label-md text-label-md font-semibold flex items-center justify-center gap-2 shadow-sm" type="button"><span>App Store</span><span class="material-symbols-outlined text-[14px]">check</span></button><button class="h-9 px-3 rounded-xl bg-slate-100/80 border border-slate-200 text-slate-700 font-label-md text-label-md font-medium flex items-center justify-center gap-2 hover:bg-slate-200/70 transition-all" type="button"><span>Google Play</span></button></div></div><div class="flex flex-col gap-1.5"><label class="font-label-md text-label-md font-bold text-slate-800">Star Rating</label><div class="flex items-center gap-1.5"><button class="flex-1 h-9 rounded-xl bg-slate-100/80 border border-slate-200 hover:bg-slate-200/70 font-label-md text-label-md text-slate-700 font-semibold" type="button">1★</button><button class="flex-1 h-9 rounded-xl bg-slate-100/80 border border-slate-200 hover:bg-slate-200/70 font-label-md text-label-md text-slate-700 font-semibold" type="button">2★</button><button class="flex-1 h-9 rounded-xl bg-primary-container text-white font-label-md text-label-md font-bold shadow-xs" type="button">3★</button><button class="flex-1 h-9 rounded-xl bg-primary-container text-white font-label-md text-label-md font-bold shadow-xs" type="button">4★</button><button class="flex-1 h-9 rounded-xl bg-primary-container text-white font-label-md text-label-md font-bold shadow-xs" type="button">5★</button></div></div><div class="flex flex-col gap-1.5"><label class="font-label-md text-label-md font-bold text-slate-800">Categories &amp; Themes</label><div class="flex flex-wrap gap-1.5"><span class="px-3 py-1 rounded-full bg-purple-100 border border-purple-200 text-primary-container font-label-sm text-label-sm font-bold cursor-pointer">Trading &amp; Orders</span><span class="px-3 py-1 rounded-full bg-purple-100 border border-purple-200 text-primary-container font-label-sm text-label-sm font-bold cursor-pointer">Authentication</span><span class="px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-600 font-label-sm text-label-sm font-medium cursor-pointer hover:bg-slate-200/70">Deposits &amp; Wires</span><span class="px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-600 font-label-sm text-label-sm font-medium cursor-pointer hover:bg-slate-200/70">App Latency</span></div></div><div class="flex flex-col gap-1.5"><label class="font-label-md text-label-md font-bold text-slate-800">Release Version</label><select class="w-full h-10 px-3 rounded-xl bg-slate-100/80 border border-slate-200 text-slate-900 font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all font-medium"><option>All Active (v4.12.0 – v4.12.3)</option><option>v4.12.3 (Current Production)</option><option>v4.12.2</option><option>v4.12.0</option></select></div></div><div class="p-6 border-t border-slate-100 flex items-center gap-3 bg-white/95"><button class="flex-1 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-label-md text-label-md font-semibold transition-colors" type="button">Reset</button><label class="cursor-pointer flex-1 h-10 rounded-xl bg-gradient-to-r from-primary-container to-primary hover:opacity-95 text-white font-label-md text-label-md font-bold flex items-center justify-center shadow-[0_4px_12px_rgba(109,40,217,0.3)] transition-all" for="filter-drawer-toggle">Apply Filters</label></div></aside></body></html>
