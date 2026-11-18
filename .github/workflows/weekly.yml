@@ -1,0 +1,48 @@
+name: weekly-pulse
+on:
+  schedule:
+    - cron: "30 3 * * 1"   # Mon 09:00 IST
+  workflow_dispatch:
+    inputs:
+      week: { description: "Run id, e.g. 2026-W46 (blank = last week)", required: false }
+      from: { description: "First stage, e.g. publish (blank = full run)", required: false }
+
+concurrency: { group: weekly-pulse, cancel-in-progress: false }
+permissions: { contents: read }
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PULSE_WEEK: ${{ inputs.week }}
+      PULSE_FROM: ${{ inputs.from }}
+      PULSE_MCP_COMMAND: ""
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      MCP_AUTH_TOKEN: ${{ secrets.MCP_AUTH_TOKEN }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: raviiitb0606-pm/pulse-data
+          path: data
+          ssh-key: ${{ secrets.PULSE_DATA_DEPLOY_KEY }}
+      - uses: astral-sh/setup-uv@v6
+        with: { version: "0.13.5" }
+      - run: uv sync --frozen --no-dev && echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - run: npm ci --prefix frontend && npm install -g vercel@65.16.0
+      - run: sh scripts/weekly.sh
+      - name: Save run history
+        if: always()
+        working-directory: data
+        run: |
+          git config user.name "pulse-bot"
+          git config user.email "pulse-bot@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "run ${PULSE_WEEK:-scheduled} $(date -u +%FT%TZ)"
+          git push

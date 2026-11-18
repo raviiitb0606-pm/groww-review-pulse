@@ -4,3 +4,5 @@ dist/
 public/dashboard.json
 .vercel/
 *.tsbuildinfo
+.vercel
+.env*

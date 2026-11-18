@@ -1,5 +1,5 @@
 #!/bin/sh
-# Railway cron entry point: publish last week's pulse, then rebuild and deploy the dashboard.
+# GitHub Actions entry point: publish last week's pulse, then rebuild and deploy the dashboard.
 # Env: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID, the LLM key and MCP_AUTH_TOKEN.
 # Optional: PULSE_WEEK (run id, default last ISO week in IST), PULSE_FROM (first stage, e.g.
 # `publish` to retry a failed email without composing a new pulse).
